@@ -29,9 +29,26 @@ function selectionSort(arr) {
   return arr;
 }
 
-function mergeSort(arr) {}
+function mergeSort(arr) {
+  if (arr.length === 1) return arr;
+  const left = arr.slice(0, Math.floor(arr.length / 2));
+  const right = arr.slice(Math.floor(arr.length / 2));
+  return merge(mergeSort(left), mergeSort(right));
+}
 
-function merge(left, right) {}
+function merge(left, right) {
+  const resArr = [];
+  while (left.length && right.length) {
+    if (left[0] > right[0]) {
+      resArr.push(right.shift());
+    } else {
+      resArr.push(left.shift());
+    }
+  }
+  if (!left.length) resArr.push(...right);
+  if (!right.length) resArr.push(...left);
+  return resArr;
+}
 
 module.exports = { bubbleSort, selectionSort, mergeSort, merge };
 
@@ -69,4 +86,30 @@ module.exports = { bubbleSort, selectionSort, mergeSort, merge };
 //   }
 
 //   return arr;
+// }
+
+// function mergeSort(arr) {
+//   if (arr.length === 1) {
+//     return arr;
+//   }
+
+//   const center = Math.floor(arr.length / 2);
+//   const left = arr.slice(0, center);
+//   const right = arr.slice(center);
+
+//   return merge(mergeSort(left), mergeSort(right));
+// }
+
+// function merge(left, right) {
+//   const results = [];
+
+//   while (left.length && right.length) {
+//     if (left[0] < right[0]) {
+//       results.push(left.shift());
+//     } else {
+//       results.push(right.shift());
+//     }
+//   }
+
+//   return [...results, ...left, ...right];
 // }
